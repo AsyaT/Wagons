@@ -22,24 +22,31 @@ dvar interval EmptyTrainFromStartPont[w in wagons][sp in shipmentPoint] optional
 dvar interval EmptyTrainBetweenShipment[w in wagons][sp1 in shipmentPoint][sp2 in shipmentPoint] optional size 
 shippmentStartDate[sp1] - (shippmentStartDate[sp2] + shippmentDuration[sp2]);
 
+
 dvar sequence WagonSequence[w in wagons] in append 
 (
 	all(i in startPoint) EmptyTrainFromStartPont[w][i],
-	all(sp in shipmentPoint) Shippment[sp],
-	all(sp1 in shipmentPoint, sp2 in shipmentPoint) EmptyTrainBetweenShipment[w][sp1][sp2]
+	all(sp in shipmentPoint) Shippment[sp]//,
+	//all(sp1 in shipmentPoint, sp2 in shipmentPoint) EmptyTrainBetweenShipment[w][sp1][sp2]
 )
 types
-append (0, 1, 2);
+append ( 
+all(i in startPoint) 0, 
+all(sp in shipmentPoint) 1//, 
+//all(sp1 in shipmentPoint, sp2 in shipmentPoint) 2
+);
 
-maximize 1;
+
+maximize sum(sp in shipmentPoint) sizeOf (Shippment[sp]); // TODO: find new
 
 subject to
 {
-
+	//sum(i in shipmentPoint ) presenceOf(Shippment[i]) == 1;
 	
 
 	forall(i in shipmentPoint)
 	  {
+	  
 	  	  startOf(Shippment[i]) == shippmentStartDate[i];
 	  	  endOf(Shippment[i]) == shippmentStartDate[i]+shippmentDuration[i];
 	  }
@@ -47,7 +54,7 @@ subject to
 	forall(w in wagons)
 	  {
 	  
-	  	noOverlap(WagonSequence[w]);
+	 // 	noOverlap(WagonSequence[w]);
 	  	  
 	  forall(i in shipmentPoint)
 	    { 	  
@@ -59,4 +66,5 @@ subject to
 		  		first(WagonSequence[w], EmptyTrainFromStartPont[w][sp]);
   			}		  
 	  }
+	  
 }

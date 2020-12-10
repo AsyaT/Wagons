@@ -3,26 +3,27 @@
  * Author: Ася Троян
  * Creation Date: Dec 10, 2020 at 1:23:51 PM
  *********************************************/
- wagons = {1};
+ wagons = {1, 2};
  
  shipmentPoint = {1, 2};
  
- startPoint = {1};
+ startPoint = {1, 2};
  
- startPointStartDateWagon = [ 0];
- pointOfStart = [1];
+ startPointStartDateWagon = [ 0, 1];
+ pointOfStart = [1, 2];
  
- shippmentStartDate = [ 10, 14];
+ shippmentStartDate = [ 5, 14];
  shippmentDuration = [ 5, 10]; 
  
   emptyTrainStartDuration = 
  [
- [2, 5]
+ [2, 4],
+ [5, 1]
  ];
  
  emptyTrainShipmentDuration = [
- [10, 1],
- [8, 14],
+ [2, 1],
+ [8, 4],
 ];
  
  
