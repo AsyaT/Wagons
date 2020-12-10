@@ -11,6 +11,7 @@
  startPoint = {1, 2, 3};
  
  startPointStartDateWagon = [ 5, 0, 22 ];
+ pointOfStart = [1, 2, 3];
  
  shippmentStartDate = [ 10, 14, 20, 30, 33, 37, 40];
  shippmentDuration = [ 5, 15, 7, 10, 8, 2, 3]; 

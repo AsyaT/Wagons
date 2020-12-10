@@ -4,7 +4,7 @@
 		<config default="true" name="Configuration1" category="opl">
 			<ref name="WagonsLogistic.mod" type="model">
 			</ref>
-			<ref name="WagonsLogistic.dat" type="data">
+			<ref name="smallData.dat" type="data">
 			</ref>
 		</config>
 	</configs>
