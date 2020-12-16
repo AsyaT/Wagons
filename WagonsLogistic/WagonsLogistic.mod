@@ -15,6 +15,8 @@ int shippmentEndDate[shipmentPoint] = ...;
 int emptyTrainStartDuration [startPoint] [ shipmentPoint] = ...;
 int emptyTrainShipmentDuration[shipmentPoint][ shipmentPoint] = ...; //длительность порожнего рейса.  -1 = рейс недопустим
 
+tuple triplet {int id1; int id2; int value;};
+{triplet} emptyTrainDistanceMatrix = ...;
 
 
 dvar interval Shippment[w in wagons][sp in shipmentPoint] optional in shippmentStartDate[sp]..shippmentEndDate[sp] size shippmentDuration[sp] ;
@@ -28,19 +30,14 @@ maximize sum(w in wagons, sp in shipmentPoint) presenceOf (Shippment[w][sp]);
 
 subject to
 {
-
-
 	forall(sp in shipmentPoint)
-		  {
+		{
 			 sum (w in wagons )presenceOf(Shippment[w][sp]) == 1;
-			}
+		}
 			
 			
-forall(w in wagons)
-	  {
- 
-	  noOverlap(WagonSequence[w]);	  
+	forall(w in wagons)
+		{
+			noOverlap(WagonSequence[w], emptyTrainDistanceMatrix);	  
  		}	  
-
-	  
 }
