@@ -1,5 +1,5 @@
  using CP;
-  execute PARAMS{cp.param.TimeLimit = 60;}
+ execute PARAMS{cp.param.TimeLimit = 60;}
  
 {int} wagons = ...;
 {int} points = ... ;
@@ -35,7 +35,7 @@ subject to
 {
 	forall(sp in points)
 		{
-			 sum (w in wagons )presenceOf(Shippment[w][sp]) == 1;
+			 sum (w in wagons )presenceOf(Shippment[w][sp]) <= 1;
 		}
 			
 			
