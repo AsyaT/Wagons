@@ -4,12 +4,12 @@
 {int} wagons = ...;
 {int} points = ... ;
 
-int startPointStartDateWagon[wagons] = ...; // время момент старта для каждого вагона
-int pointOfStart[wagons] = ...;
+int startPointStartDateWagon[wagons] = ...; // время момента старта для каждого вагона
+int pointOfStart[wagons] = ...; // точка старта каждого вагона
 
 int shippmentStartDate[points] = ...; // дата отправления груженого рейса
 int shippmentDuration[points] = ...;//среднее время в пути по направлению груженого рейса
-int shippmentEndDate[points] = ...;
+int shippmentEndDate[points] = ...; // время окончания груженого рейса
 
 
 tuple triplet {int id1; int id2; int value;};
@@ -22,10 +22,10 @@ dvar interval Shippment[w in wagons][sp in points] optional in shippmentStartDat
 
 
 dvar sequence WagonSequence[w in wagons] in 
-append(
-all(sp in points) Shippment[w][sp],
-StartInterval[w]
-)
+	append(
+	all(sp in points) Shippment[w][sp],
+	StartInterval[w]
+	)
 types append(  all(sp in points) sp, pointOfStart[w]);
 
 
