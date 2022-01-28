@@ -7,6 +7,12 @@
 			<ref name="smallData.dat" type="data">
 			</ref>
 		</config>
+		<config default="false" name="CarLogistic" category="opl">
+			<ref name="CarLogisticData.dat" type="data">
+			</ref>
+			<ref name="CarLogistic.mod" type="model">
+			</ref>
+		</config>
 	</configs>
 	
 </project>
