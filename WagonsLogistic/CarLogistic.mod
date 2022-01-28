@@ -24,7 +24,7 @@ int shipmentDuration[shipmentIds] = [ i.shipmentId : i.shipmentDuration | i in S
 
 //--------------------
 tuple triplet {int id1; int id2; int value;};
-{triplet} emptyTrainDistanceMatrix = ...;
+{triplet} DistanceMatrix = ...;
 //-------------------------------------
 
 dvar interval StartInterval[c in cars] in startTimeCars[c]..startTimeCars[c] size 0;
@@ -33,7 +33,7 @@ dvar interval StartShippingInterval[c in cars][sp in shipmentIds] optional in st
 dvar interval FinishShippingInterval[c in cars][sp in shipmentIds] optional;
 
 //-----------------------------------
-dvar sequence WagonSequence[c in cars] in 
+dvar sequence CarSequence[c in cars] in 
 	append(
 	all(a in {c}) StartInterval[a],
 	all(sp in shipmentIds) StartShippingInterval[c][sp],
@@ -50,15 +50,13 @@ maximize sum(c in cars, sp in shipmentIds) presenceOf (StartShippingInterval[c][
 
 subject to
 {
-  
-  
 	forall(sp in shipmentIds)
 		{
 		  forall(c in cars)
 		    {
 		      	      
 		      presenceOf(StartShippingInterval[c][sp]) == presenceOf(FinishShippingInterval[c][sp]);
-		      prev(WagonSequence[c], StartShippingInterval[c][sp], FinishShippingInterval[c][sp]);
+		      prev(CarSequence[c], StartShippingInterval[c][sp], FinishShippingInterval[c][sp]);
 		    }
 		    
 		    sum (c in cars )presenceOf(StartShippingInterval[c][sp]) <= 1;
@@ -68,6 +66,6 @@ subject to
 			
 	forall(c in cars)
 		{
-			noOverlap(WagonSequence[c], emptyTrainDistanceMatrix);	  
+			noOverlap(CarSequence[c], DistanceMatrix);	  
  		}	  
 }
