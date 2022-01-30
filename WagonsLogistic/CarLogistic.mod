@@ -54,6 +54,8 @@ subject to
 		{
 		  forall(c in cars)
 		    {
+		      
+		      first(CarSequence[c], StartInterval[c]);
 		      	      
 		      presenceOf(StartShippingInterval[c][sp]) == presenceOf(FinishShippingInterval[c][sp]);
 		      prev(CarSequence[c], StartShippingInterval[c][sp], FinishShippingInterval[c][sp]);
