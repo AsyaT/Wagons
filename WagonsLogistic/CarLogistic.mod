@@ -30,7 +30,7 @@ tuple triplet {int id1; int id2; int value;};
 dvar interval StartInterval[c in cars] in startTimeCars[c]..startTimeCars[c] size 0;
 
 dvar interval StartShippingInterval[c in cars][sp in shipmentIds] optional in stratShipmentTime[sp]..(stratShipmentTime[sp]+shipmentDuration[sp]) size shipmentDuration[sp];
-dvar interval FinishShippingInterval[c in cars][sp in shipmentIds] optional;
+dvar interval FinishShippingInterval[c in cars][sp in shipmentIds] optional size 0;
 
 //-----------------------------------
 dvar sequence CarSequence[c in cars] in 
@@ -46,7 +46,10 @@ types append(
 	);
 
 
-maximize sum(c in cars, sp in shipmentIds) presenceOf (StartShippingInterval[c][sp]);
+minimize staticLex(
+	card(cars)*card(shipmentIds) - sum(c in cars, sp in shipmentIds) presenceOf (StartShippingInterval[c][sp]),
+	sum(c in cars, sp in shipmentIds) (startOf(StartShippingInterval[c][sp]) - endOfPrev(CarSequence[c], StartShippingInterval[c][sp], 0, 0))
+);
 
 subject to
 {
