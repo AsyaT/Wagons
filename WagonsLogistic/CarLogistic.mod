@@ -71,6 +71,6 @@ subject to
 			
 	forall(c in cars)
 		{
-			noOverlap(CarSequence[c], DistanceMatrix);	  
+			noOverlap(CarSequence[c], DistanceMatrix, true);	  
  		}	  
 }
